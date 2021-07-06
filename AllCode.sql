@@ -47,3 +47,29 @@ create table Booking(
     FOREIGN KEY(ClientID) REFERENCES Client(ClientID),
     FOREIGN KEY(TourName, EventMonth, EventDay, EventYear) REFERENCES Event(TourName, EventMonth, EventDay, EventYear)
 )
+-------------
+-- Query 1 --
+select  Booking.ClientID as 'ID',
+        Client.GivenName as 'Given Name',
+        Client.Surname as 'Surname',
+        Booking.TourName as 'Tour Name',
+        Tour.Description as 'Description',
+        Event.EventMonth as 'Month',
+        Event.EventDay as 'Day',
+        Event.EventYear as 'Year',
+        Event.Payment as 'Fee'
+from Booking
+INNER JOIN Tour on Booking.TourName = Tour.TourName
+INNER JOIN Client on Booking.ClientID = Client.ClientID
+INNER JOIN Event on Booking.EventYear = Event.EventYear
+-------------
+-- Query 2 --
+select  EventMonth as 'Month',
+        TourName as 'Tour Name',
+        Count(*) as 'Num Bookings'
+from Booking
+GROUP BY EventMonth, Tourname HAVING COUNT(*) > 1
+-------------
+-- Query 3 --
+select  * from Booking
+WHERE ClientID in (select ClientID from Booking where Payment > 200)
