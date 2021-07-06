@@ -54,14 +54,13 @@ select  Booking.ClientID as 'ID',
         Client.Surname as 'Surname',
         Booking.TourName as 'Tour Name',
         Tour.Description as 'Description',
-        Event.EventMonth as 'Month',
-        Event.EventDay as 'Day',
-        Event.EventYear as 'Year',
-        Event.Payment as 'Fee'
+        Booking.EventMonth as 'Month',
+        Booking.EventDay as 'Day',
+        Booking.EventYear as 'Year',
+        Booking.Payment as 'Fee'
 from Booking
 INNER JOIN Tour on Booking.TourName = Tour.TourName
 INNER JOIN Client on Booking.ClientID = Client.ClientID
-INNER JOIN Event on Booking.EventYear = Event.EventYear
 -------------
 -- Query 2 --
 select  EventMonth as 'Month',
@@ -73,3 +72,19 @@ GROUP BY EventMonth, Tourname HAVING COUNT(*) > 1
 -- Query 3 --
 select  * from Booking
 WHERE ClientID in (select ClientID from Booking where Payment > 200)
+-------------
+-- View 1  --
+create view Query1 AS
+select  Booking.ClientID as 'ID',
+        Client.GivenName as 'Given Name',
+        Client.Surname as 'Surname',
+        Booking.TourName as 'Tour Name',
+        Tour.Description as 'Description',
+        Booking.EventMonth as 'Month',
+        Booking.EventDay as 'Day',
+        Booking.EventYear as 'Year',
+        Booking.Payment as 'Fee'
+from Booking
+INNER JOIN Tour on Booking.TourName = Tour.TourName
+INNER JOIN Client on Booking.ClientID = Client.ClientID
+where Booking.ClientID = 1
