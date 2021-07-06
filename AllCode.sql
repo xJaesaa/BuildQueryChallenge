@@ -61,6 +61,9 @@ select  Booking.ClientID as 'ID',
 from Booking
 INNER JOIN Tour on Booking.TourName = Tour.TourName
 INNER JOIN Client on Booking.ClientID = Client.ClientID
+-- Testing --
+-- select count(*) from Booking, returns 10, as there are 10 rows. Query 1 Returns 10
+-- at one point it was returning 50 and that was pretty cool. i fixed it because im clearly a genius
 -------------
 -- Query 2 --
 select  EventMonth as 'Month',
@@ -68,12 +71,17 @@ select  EventMonth as 'Month',
         Count(*) as 'Num Bookings'
 from Booking
 GROUP BY EventMonth, Tourname HAVING COUNT(*) > 1
+-- Testing --
+-- idk what I did for this. unfortunate innit
 -------------
 -- Query 3 --
 select  * from Booking
 WHERE ClientID in (select ClientID from Booking where Payment > 200)
+-- Testing --
+-- I couldn't figure out how to get the Average mid query, so I got it using
+-- select Avg(Payment) from Booking, and just putting that in the code
 -------------
--- View 1  --
+--  View   --
 create view Query1 AS
 select  Booking.ClientID as 'ID',
         Client.GivenName as 'Given Name',
@@ -88,3 +96,12 @@ from Booking
 INNER JOIN Tour on Booking.TourName = Tour.TourName
 INNER JOIN Client on Booking.ClientID = Client.ClientID
 where Booking.ClientID = 1
+-------------
+--  TestQ  --
+/*  Query 1:
+    select count(*) from Booking, returns 10, as there are 10 rows. Query 1 Returns 10
+
+    Query 2:
+
+
+*/
